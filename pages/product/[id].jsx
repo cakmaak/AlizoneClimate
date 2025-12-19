@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductDetail from "@/components/ProductDetail";
-import localProducts from "@/ClimatePanelJson/products.json";
+import localProducts from "../ClimatePanelJson/products.json";
 import { useRouter } from "next/router";
 
 const DATA_URL = "https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/main/products.json";
