@@ -1,8 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductDetail from "@/components/ProductDetail";
-
-
+import localProducts from "/ClimatePanelJson/products.json";
 import { useRouter } from "next/router";
 
 const DATA_URL = "https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/main/products.json";
@@ -10,17 +9,16 @@ const DATA_URL = "https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/
 async function loadProducts() {
   try {
     const res = await fetch(DATA_URL);
-    if (!res.ok) throw new Error(`Remote fetch failed: ${res.status}`);
+    if (!res.ok) throw new Error(`Remote fetch failed with status ${res.status}`);
     const data = await res.json();
-    return Array.isArray(data) ? data : [];
-  } catch (err) {
-    console.error("Failed to fetch products", err);
-    return []; // boş array dön, localProducts artık yok
+    if (Array.isArray(data) && data.length > 0) {
+      return data;
+    }
+  } catch (error) {
+    console.error("Remote product fetch failed, falling back to local data", error);
   }
+  return localProducts;
 }
-
-
-
 
 export default function ProductPage({ product }) {
   const router = useRouter();
@@ -56,23 +54,29 @@ export default function ProductPage({ product }) {
     </div>
   );
 }
+
 export async function getStaticPaths() {
+  // Pre-generate detail pages for all products so category-specific types (e.g. "Salon Tipi Klima")
+  // are not skipped. We keep ISR fallback for any late additions.
   const products = await loadProducts();
-  const paths = products.map(p => ({
-    params: { id: String(p.id) }
-  }));
+  const paths =
+    Array.isArray(products) && products.length > 0
+      ? products.map((product) => ({
+        params: { id: String(product.id).toLowerCase() }
+      }))
+      : [];
 
   return {
     paths,
-    fallback: "blocking"
+    fallback: 'blocking'
   };
 }
 
-
-
 export async function getStaticProps({ params }) {
   const products = await loadProducts();
-  const product = products.find(p => String(p.id) === params.id);
+  const product = products.find((item) =>
+    String(item.id).toLowerCase() === String(params.id).toLowerCase()
+  );
 
   if (!product) {
     return { notFound: true };
@@ -80,8 +84,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { product },
-    revalidate: 3600,
+    revalidate: 60 * 60
   };
 }
-
 

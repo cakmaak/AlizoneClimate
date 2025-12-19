@@ -3,23 +3,28 @@ import { useRouter } from 'next/router';
 import Navbar from "@/components/Navbar";
 import ProductGrid from "@/components/ProductGrid";
 import Footer from "@/components/Footer";
-
-
+import localProducts from "/ClimatePanelJson/products.json";
 
 const DATA_URL = "https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/main/products.json";
 
 async function loadProducts() {
   try {
     const res = await fetch(DATA_URL);
-    if (!res.ok) throw new Error(`Remote fetch failed: ${res.status}`);
-    const data = await res.json();
-    return Array.isArray(data) ? data : [];
-  } catch (err) {
-    console.error("Failed to fetch products", err);
-    return []; // boş array dön, localProducts artık yok
+    if (!res.ok) throw new Error(`Remote fetch failed with status ${res.status}`);
+    const text = await res.text();
+    try {
+      const data = JSON.parse(text);
+      if (Array.isArray(data) && data.length > 0) {
+        return data;
+      }
+    } catch (parseError) {
+      console.error("Failed to parse remote JSON, using local data instead", parseError);
+    }
+  } catch (error) {
+    console.error("Remote product fetch failed, using local data instead", error);
   }
+  return localProducts;
 }
-
 
 function normalizeProduct(product) {
   const normalized = {

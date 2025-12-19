@@ -3,25 +3,24 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Navbar from "@/components/Navbar";
 import ProductGrid from "@/components/ProductGrid";
-import Footer from "@../../components/Footer";
-
-
+import Footer from "@/components/Footer";
+import localProducts from "/ClimatePanelJson/products.json";
 
 const DATA_URL = "https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/main/products.json";
+
 async function loadProducts() {
   try {
     const res = await fetch(DATA_URL);
-    if (!res.ok) throw new Error(`Remote fetch failed: ${res.status}`);
+    if (!res.ok) throw new Error(`Remote fetch failed with status ${res.status}`);
     const data = await res.json();
-    return Array.isArray(data) ? data : [];
-  } catch (err) {
-    console.error("Failed to fetch products", err);
-    return []; // boş array dön, localProducts artık yok
+    if (Array.isArray(data) && data.length > 0) {
+      return data;
+    }
+  } catch (error) {
+    console.error("Remote product fetch failed, using local data instead", error);
   }
+  return localProducts;
 }
-
-
-
 
 const mobileSlides = [
   {
@@ -116,19 +115,11 @@ export default function MobileProductsPage({ products }) {
   );
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps() {
   const products = await loadProducts();
-  const product = products.find(p => String(p.id) === params.id);
-
-  if (!product) {
-    return { notFound: true };
-  }
-
   return {
-    props: { product },
-    revalidate: 3600,
+    props: { products },
+    revalidate: 60 * 60 // refresh hourly
   };
 }
-
-
 
