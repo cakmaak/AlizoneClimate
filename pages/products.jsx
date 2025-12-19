@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import Navbar from "@/components/Navbar";
 import ProductGrid from "@/components/ProductGrid";
 import Footer from "@/components/Footer";
-import localProducts from "/ClimatePanelJson/products.json";
+
+
 
 const DATA_URL = "https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/main/products.json";
 
@@ -208,9 +209,8 @@ export default function ProductsPage({ products }) {
 
 export async function getStaticProps() {
   const products = await loadProducts();
-
   return {
-    props: { products }
-    // ❌ revalidate SİLİNDİ
+    props: { products },
+    revalidate: 60 * 60 // refresh hourly
   };
 }
