@@ -17,7 +17,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-slate-50">
       {/* 🔝 HERO VIDEO */}
       <section className="relative h-[70vh] w-full overflow-hidden bg-black">
-        <video
+        {/*<video
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover"
           autoPlay
