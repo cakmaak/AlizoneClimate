@@ -2,49 +2,77 @@ import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 
+// Default product values to prevent undefined errors
+const defaultProduct = {
+  brand: '',
+  model: '',
+  type: 'Bilinmiyor',
+  color: 'Beyaz',
+  price: 0,
+  images: [],
+  highlight_features: [],
+  other_features: {},
+  capacity: {},
+  energy: {},
+  warranty: 'Garanti bilgisi bulunamadı'
+};
+
 export default function ProductDetail({ product, onClose }) {
   if (!product) return null;
-  const gallery = (product.images && product.images.length > 0 ? product.images : []).filter(Boolean);
-  if (gallery.length === 0 && product.image) gallery.push(product.image);
-  if (gallery.length === 0) gallery.push("https://via.placeholder.com/900x600?text=Klima+Gorseli");
+
+  // Merge with defaults
+  const productWithDefaults = {
+    ...defaultProduct,
+    ...product,
+    capacity: { ...defaultProduct.capacity, ...(product.capacity || {}) },
+    energy: { ...defaultProduct.energy, ...(product.energy || {}) },
+    other_features: { ...defaultProduct.other_features, ...(product.other_features || {}) },
+    images: Array.isArray(product.images) ? product.images : (product.image ? [product.image] : [])
+  };
+
+  // Prepare gallery images
+  const gallery = (productWithDefaults.images || []).filter(Boolean);
+  if (gallery.length === 0) {
+    gallery.push("https://via.placeholder.com/900x600?text=Klima+Gorseli");
+  }
 
   const [otherFeaturesOpen, setOtherFeaturesOpen] = useState(false);
   const [lightboxSrc, setLightboxSrc] = useState(null);
 
   const normalizedValues = {
-    btusCooling: product.btus_cooling ?? product.capacity?.cooling_btu ?? null,
-    btusHeating: product.btus_heating ?? product.capacity?.heating_btu ?? null,
-    energyRating: product.energy_rating ?? product.energy?.cooling_class ?? product.energy?.heating_class ?? null,
+    btusCooling: productWithDefaults.btus_cooling ?? productWithDefaults.capacity?.cooling_btu ?? null,
+    btusHeating: productWithDefaults.btus_heating ?? productWithDefaults.capacity?.heating_btu ?? null,
+    energyRating: productWithDefaults.energy_rating ?? productWithDefaults.energy?.cooling_class ?? productWithDefaults.energy?.heating_class ?? null,
     noiseIndoor:
-      product.noise_indoor_db ??
-      product.other_features?.noise_levels_db?.indoor_cooling ??
-      product.other_features?.noise_levels_db?.indoor_heating ??
+      productWithDefaults.noise_indoor_db ??
+      productWithDefaults.other_features?.noise_levels_db?.indoor_cooling ??
+      productWithDefaults.other_features?.noise_levels_db?.indoor_heating ??
       null,
     noiseOutdoor:
-      product.noise_outdoor_db ??
-      product.other_features?.noise_levels_db?.outdoor_cooling ??
-      product.other_features?.noise_levels_db?.outdoor_heating ??
+      productWithDefaults.noise_outdoor_db ??
+      productWithDefaults.other_features?.noise_levels_db?.outdoor_cooling ??
+      productWithDefaults.other_features?.noise_levels_db?.outdoor_heating ??
       null,
-    recommendedRoom: product.recommended_room_m2 ?? product.other_features?.recommended_room_m2 ?? null,
+    recommendedRoom: productWithDefaults.recommended_room_m2 ?? productWithDefaults.other_features?.recommended_room_m2 ?? null,
     refrigerant:
-      product.refrigerant?.type ||
-      product.refrigerant ||
-      product.other_features?.refrigerant ||
-      product.refrigerant_type ||
+      productWithDefaults.refrigerant?.type ||
+      productWithDefaults.refrigerant ||
+      productWithDefaults.other_features?.refrigerant ||
+      productWithDefaults.refrigerant_type ||
       "—",
     warranty:
-      product.warranty ??
-      (product.warranty_months ? `${product.warranty_months} Ay Garanti` : product.other_features?.warranty) ??
+      productWithDefaults.warranty ??
+      (productWithDefaults.warranty_months ? `${productWithDefaults.warranty_months} Ay Garanti` : productWithDefaults.other_features?.warranty) ??
       "—"
   };
 
   const specRows = [
-    { label: "Marka / Model", value: `${product.brand} ${product.model || ""}`.trim() },
+    { label: "Marka / Model", value: `${productWithDefaults.brand || ''} ${productWithDefaults.model || ''}`.trim() || "—" },
     { label: "BTU (Soğutma)", value: normalizedValues.btusCooling ? `${normalizedValues.btusCooling} BTU` : "—" },
     { label: "BTU (Isıtma)", value: normalizedValues.btusHeating ? `${normalizedValues.btusHeating} BTU` : "—" },
     { label: "Enerji Sınıfı", value: normalizedValues.energyRating || "—" },
-    { label: "Tip", value: product.type },
-    { label: "Renk", value: product.color },
+    { label: "Tip", value: productWithDefaults.type || "—" },
+    { label: "Renk", value: productWithDefaults.color || "—" },
     { label: "Ses Seviyesi (İç)", value: normalizedValues.noiseIndoor ? `${normalizedValues.noiseIndoor} dB` : "—" },
     { label: "Ses Seviyesi (Dış)", value: normalizedValues.noiseOutdoor ? `${normalizedValues.noiseOutdoor} dB` : "—" },
     { label: "Önerilen Alan", value: normalizedValues.recommendedRoom ? `${normalizedValues.recommendedRoom} m²` : "—" },
@@ -52,8 +80,8 @@ export default function ProductDetail({ product, onClose }) {
     { label: "Garanti", value: normalizedValues.warranty }
   ];
 
-  const highlightFeatures = Array.isArray(product.highlight_features) ? product.highlight_features : [];
-  const otherFeatures = product.other_features || null;
+  const highlightFeatures = Array.isArray(productWithDefaults.highlight_features) ? productWithDefaults.highlight_features : [];
+  const otherFeatures = productWithDefaults.other_features || null;
 
   const infoHighlights = [
     { label: "Enerji", value: normalizedValues.energyRating },
@@ -64,8 +92,8 @@ export default function ProductDetail({ product, onClose }) {
     { label: "Garanti", value: normalizedValues.warranty !== "—" ? normalizedValues.warranty : null }
   ].filter((item) => item.value);
 
-  const priceText = product.price ? `${product.price.toLocaleString("tr-TR")} ₺` : "";
-  const brandName = (product.brand || "").toLowerCase();
+  const priceText = productWithDefaults.price ? `${productWithDefaults.price.toLocaleString("tr-TR")} ₺` : "";
+  const brandName = (productWithDefaults.brand || "").toLowerCase();
   const isBosch = brandName.includes("bosch");
   const isSakura = brandName.includes("sacura") || brandName.includes("sakura");
   const boschLogo = "https://res.cloudinary.com/diyibvvua/image/upload/v1765877243/boschlogo_qnv9f0.png";
@@ -144,9 +172,9 @@ export default function ProductDetail({ product, onClose }) {
                 </span>
               </div>
               {/* TAKSİT BİLGİSİ */}
-<div className="bg-emerald-50 text-emerald-700 text-xs font-medium py-2 px-3 rounded-lg border border-emerald-100">
-  💳 Kredi kartına <span className="font-semibold">9 aya varan</span> taksit fırsatları
-</div>
+              <div className="bg-emerald-50 text-emerald-700 text-xs font-medium py-2 px-3 rounded-lg border border-emerald-100">
+                💳 Kredi kartına <span className="font-semibold">9 aya varan</span> taksit fırsatları
+              </div>
 
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
                 {product.description || (product.system_type ?
