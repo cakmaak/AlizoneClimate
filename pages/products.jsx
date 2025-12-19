@@ -208,8 +208,9 @@ export default function ProductsPage({ products }) {
 
 export async function getStaticProps() {
   const products = await loadProducts();
+
   return {
-    props: { products },
-    revalidate: 60 * 60 // refresh hourly
+    props: { products }
+    // ❌ revalidate SİLİNDİ
   };
 }

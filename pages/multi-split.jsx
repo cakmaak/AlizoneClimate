@@ -116,10 +116,9 @@ export default function MultiSplitPage({ products }) {
 
 export async function getStaticProps() {
     const products = await loadProducts();
+  
     return {
-        props: {
-            products,
-        },
-        revalidate: 3600, // Revalidate every hour
+      props: { products }
+      // ❌ revalidate SİLİNDİ
     };
-}
+  }
