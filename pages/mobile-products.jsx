@@ -8,18 +8,21 @@ import Footer from "@../../components/Footer";
 
 
 const DATA_URL = "https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/main/products.json";
-
 async function loadProducts() {
   try {
-    const res = await fetch("https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/main/products.json");
-    if (!res.ok) throw new Error(`Remote fetch failed with status ${res.status}`);
+    const res = await fetch(DATA_URL);
+    if (!res.ok) throw new Error("Products fetch failed " + res.status);
     const data = await res.json();
-    if (Array.isArray(data)) return data; // array varsa dön
-  } catch (error) {
-    console.error("Remote product fetch failed", error);
+    if (!Array.isArray(data)) return [];
+    return data;
+  } catch (e) {
+    console.error("Fetch error:", e);
+    return [];
   }
-  return []; // localProducts yerine boş array
 }
+
+
+
 const mobileSlides = [
   {
     title: "Taşınabilir Konfor",
@@ -113,11 +116,19 @@ export default function MobileProductsPage({ products }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ params }) {
   const products = await loadProducts();
+  const product = products.find(p => String(p.id) === params.id);
+
+  if (!product) {
+    return { notFound: true };
+  }
+
   return {
-    props: { products },
-    revalidate: 60 * 60 // refresh hourly
+    props: { product },
+    revalidate: 3600,
   };
 }
+
+
 

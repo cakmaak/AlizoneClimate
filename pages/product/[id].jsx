@@ -9,15 +9,18 @@ const DATA_URL = "https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/
 
 async function loadProducts() {
   try {
-    const res = await fetch("https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/main/products.json");
-    if (!res.ok) throw new Error(`Remote fetch failed with status ${res.status}`);
+    const res = await fetch(DATA_URL);
+    if (!res.ok) throw new Error("Products fetch failed " + res.status);
     const data = await res.json();
-    if (Array.isArray(data)) return data; // array varsa dön
-  } catch (error) {
-    console.error("Remote product fetch failed", error);
+    if (!Array.isArray(data)) return [];
+    return data;
+  } catch (e) {
+    console.error("Fetch error:", e);
+    return [];
   }
-  return []; // localProducts yerine boş array
 }
+
+
 
 export default function ProductPage({ product }) {
   const router = useRouter();
@@ -53,29 +56,23 @@ export default function ProductPage({ product }) {
     </div>
   );
 }
-
 export async function getStaticPaths() {
-  // Pre-generate detail pages for all products so category-specific types (e.g. "Salon Tipi Klima")
-  // are not skipped. We keep ISR fallback for any late additions.
   const products = await loadProducts();
-  const paths =
-    Array.isArray(products) && products.length > 0
-      ? products.map((product) => ({
-        params: { id: String(product.id).toLowerCase() }
-      }))
-      : [];
+  const paths = products.map(p => ({
+    params: { id: String(p.id) }
+  }));
 
   return {
     paths,
-    fallback: 'blocking'
+    fallback: "blocking"
   };
 }
 
+
+
 export async function getStaticProps({ params }) {
   const products = await loadProducts();
-  const product = products.find((item) =>
-    String(item.id).toLowerCase() === String(params.id).toLowerCase()
-  );
+  const product = products.find(p => String(p.id) === params.id);
 
   if (!product) {
     return { notFound: true };
@@ -83,7 +80,8 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { product },
-    revalidate: 60 * 60
+    revalidate: 3600,
   };
 }
+
 
