@@ -2,7 +2,8 @@ import { useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import ProductGrid from "@/components/ProductGrid";
 import Footer from "@/components/Footer";
-import localProducts from "/ClimatePanelJson/products.json";
+import products from "../../ClimatePanelJson/products.json";
+
 
 const DATA_URL = "https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/main/products.json";
 
