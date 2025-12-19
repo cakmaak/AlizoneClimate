@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiimport products from "../../ClimatePanelJson/products.json";
-per/modules";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Navbar from "@/components/Navbar";
 import ProductGrid from "@/components/ProductGrid";
 import Footer from "@../../components/Footer";
