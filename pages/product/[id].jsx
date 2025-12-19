@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductDetail from "@/components/ProductDetail";
-import products from "../../ClimatePanelJson/products.json";
+
 
 import { useRouter } from "next/router";
 
