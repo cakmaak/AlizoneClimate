@@ -10,23 +10,15 @@ const DATA_URL = "https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/
 
 async function loadProducts() {
   try {
-    const res = await fetch(DATA_URL);
+    const res = await fetch("https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/main/products.json");
     if (!res.ok) throw new Error(`Remote fetch failed with status ${res.status}`);
-    const text = await res.text();
-    try {
-      const data = JSON.parse(text);
-      if (Array.isArray(data) && data.length > 0) {
-        return data;
-      }
-    } catch (parseError) {
-      console.error("Failed to parse remote JSON, using local data instead", parseError);
-    }
+    const data = await res.json();
+    if (Array.isArray(data)) return data; // array varsa dön
   } catch (error) {
-    console.error("Remote product fetch failed, using local data instead", error);
+    console.error("Remote product fetch failed", error);
   }
-  return localProducts;
+  return []; // localProducts yerine boş array
 }
-
 function normalizeProduct(product) {
   const normalized = {
     ...product,

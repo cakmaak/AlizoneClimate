@@ -9,16 +9,14 @@ const DATA_URL = "https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/
 
 async function loadProducts() {
   try {
-    const res = await fetch(DATA_URL);
+    const res = await fetch("https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/main/products.json");
     if (!res.ok) throw new Error(`Remote fetch failed with status ${res.status}`);
     const data = await res.json();
-    if (Array.isArray(data) && data.length > 0) {
-      return data;
-    }
+    if (Array.isArray(data)) return data; // array varsa dön
   } catch (error) {
-    console.error("Remote product fetch failed, falling back to local data", error);
+    console.error("Remote product fetch failed", error);
   }
-  return localProducts;
+  return []; // localProducts yerine boş array
 }
 
 export default function ProductPage({ product }) {
