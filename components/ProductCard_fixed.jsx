@@ -217,7 +217,7 @@ export default function ProductCard({ product }) {
                             Detaylı İncele
                         </Link>
                         <a
-                            href="tel:+903462111111"
+                            href="tel:+905542309563"
                             className="flex-1 text-center rounded-lg bg-gradient-to-r from-emerald-500 to-emerald-600 text-white py-2.5 text-sm font-semibold hover:shadow-lg hover:shadow-emerald-100 transition-all duration-200 hover:brightness-105"
                         >
                             Hemen Al

@@ -181,7 +181,7 @@ export default function ProductCard({ product }) {
           </Link>
 
           <a
-            href="tel:+903462111111"
+            href="tel:+905542309563"
             className="flex-1 text-center rounded-lg bg-emerald-600 text-white py-2 text-sm font-semibold hover:brightness-105"
           >
             Hemen Al 

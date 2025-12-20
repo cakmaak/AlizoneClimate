@@ -94,7 +94,7 @@ export default function Footer() {
         <div>
           <h4 className="font-semibold">İletişim</h4>
           <ul className="mt-3 space-y-2 text-sm text-slate-300">
-            <li>Telefon: <a className="text-white font-semibold" href="tel:+903462111111">0 (554) 230 95 63</a></li>
+            <li>Telefon: <a className="text-white font-semibold" href="tel:+905542309563">0 (554) 230 95 63</a></li>
             <li>Email: <a className="text-white font-semibold" href="mailto:alizoneteknoloji@hotmail.com">alizoneteknoloji@hotmail.com</a></li>
             <li>Adres: Ahi evran mahallesi 225 cadde F blok no:61 Sincan/Ankara</li>
           </ul>
