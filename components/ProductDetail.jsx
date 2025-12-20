@@ -27,7 +27,7 @@ const defaultProduct = {
   other_features: {},
   capacity: {},
   energy: {},
-  warranty: 'Garanti bilgisi bulunamadı'
+  warranty: '24 ay'
 };
 
 export default function ProductDetail({ product, onClose }) {
