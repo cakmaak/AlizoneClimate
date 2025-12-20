@@ -1,9 +1,10 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import ProductDetail from "@/components/ProductDetail";
-
-
+import dynamic from 'next/dynamic';
 import { useRouter } from "next/router";
+
+const ProductDetail = dynamic(
+  () => import('@/components/ProductDetail'),
+  { ssr: false }
+);
 
 const DATA_URL = "https://raw.githubusercontent.com/cakmaak/ClimateProductsJson/main/products.json";
 
@@ -18,28 +19,30 @@ async function loadProducts() {
   } catch (error) {
     console.error("Remote product fetch failed, falling back to empty array", error);
   }
-  return []; // localProducts yerine boş dizi döndürüyoruz
+  return [];
 }
 
 export default function ProductPage({ product }) {
   const router = useRouter();
+  
+  if (router.isFallback) {
+    return <div>Yükleniyor...</div>;
+  }
+
   if (!product) {
     return (
       <div className="min-h-screen bg-slate-50">
-        <Navbar />
-        <main className="container py-16">
+        <div className="container py-16">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-slate-800">Ürün bulunamadı</h1>
           </div>
-        </main>
-        <Footer />
+        </div>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <Navbar />
       <main className="container py-16 space-y-6">
         <button
           type="button"
@@ -51,21 +54,17 @@ export default function ProductPage({ product }) {
         </button>
         <ProductDetail product={product} />
       </main>
-      <Footer />
     </div>
   );
 }
 
 export async function getStaticPaths() {
-  // Pre-generate detail pages for all products so category-specific types (e.g. "Salon Tipi Klima")
-  // are not skipped. We keep ISR fallback for any late additions.
-  const products = await loadProducts();
-  const paths =
-    Array.isArray(products) && products.length > 0
-      ? products.map((product) => ({
-        params: { id: String(product.id).toLowerCase() }
-      }))
-      : [];
+  // Sadece birkaç sayfa oluştur, geri kalanı için fallback: 'blocking' kullan
+  const paths = [
+    { params: { id: '101' } },
+    { params: { id: '102' } },
+    { params: { id: '103' } }
+  ];
 
   return {
     paths,
@@ -74,24 +73,29 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const products = await loadProducts();
+  try {
+    const products = await loadProducts();
+    
+    if (!Array.isArray(products) || products.length === 0) {
+      return { notFound: true };
+    }
+    
+    const product = products.find(
+      (item) => String(item.id).toLowerCase() === String(params.id).toLowerCase()
+    );
 
-  // products'ın tanımlı ve dizi olduğundan emin ol
-  if (!Array.isArray(products) || products.length === 0) {
+    if (!product) {
+      return { notFound: true };
+    }
+
+    return {
+      props: { 
+        product: JSON.parse(JSON.stringify(product)) // Serialize to handle dates, etc.
+      },
+      revalidate: 60 * 60 // 1 saat
+    };
+  } catch (error) {
+    console.error('Error in getStaticProps:', error);
     return { notFound: true };
   }
-
-  const product = products.find((item) =>
-    String(item.id).toLowerCase() === String(params.id).toLowerCase()
-  );
-
-  if (!product) {
-    return { notFound: true };
-  }
-
-  return {
-    props: { product },
-    revalidate: 60 * 60
-  };
 }
-
