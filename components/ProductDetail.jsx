@@ -256,7 +256,7 @@ export default function ProductDetail({ product, onClose }) {
                       Teklif Al
                     </a>
                     <a
-                      href="tel:+903462111111"
+                      href="tel:+905542309563"
                       className="flex-1 text-center rounded-lg border border-slate-200 text-slate-800 font-semibold py-3 hover:bg-slate-50 transition"
                     >
                       Hemen Ara
