@@ -140,6 +140,10 @@ export default function ProductCard({ product }) {
         💳 Kredi kartına <span className="font-semibold">9 aya varan</span> taksit
         fırsatları
       </div>
+        <div className="bg-emerald-50 text-emerald-700 text-xs font-medium py-2 text-center border-t border-emerald-100">
+        💳 Eft ve Havalede  <span className="font-semibold">%5 e varan</span> indirim
+        fırsatları
+      </div>
 
       {/* ÜRÜN BİLGİLERİ */}
       <div className="p-5 space-y-4">

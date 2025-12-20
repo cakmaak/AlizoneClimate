@@ -140,6 +140,9 @@ export default function ProductDetail({ product, onClose }) {
   const isSakura = brandName.includes("sacura") || brandName.includes("sakura");
   const boschLogo = "https://res.cloudinary.com/diyibvvua/image/upload/v1765877243/boschlogo_qnv9f0.png";
   const sakuraLogo = "https://res.cloudinary.com/diyibvvua/image/upload/v1765887110/sakuralogo_r2r0cg.jpg";
+  
+  const isCarrier=brandName.includes("Carrier");
+  const carrierLogo="https://res.cloudinary.com/diyibvvua/image/upload/v1766229711/carrier_logo_broyda.png";
   const brandLogo = isBosch ? boschLogo : isSakura ? sakuraLogo : null;
 
   return (
@@ -223,6 +226,9 @@ export default function ProductDetail({ product, onClose }) {
                   <div className="bg-emerald-50 text-emerald-700 text-xs font-medium py-2 px-3 rounded-lg border border-emerald-100">
                     💳 Kredi kartına <span className="font-semibold">9 aya varan</span> taksit fırsatları
                   </div>
+                
+                
+                  
 
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
                     {product.description || (product.system_type ?
@@ -257,6 +263,10 @@ export default function ProductDetail({ product, onClose }) {
                     </a>
                   </div>
                 </div>
+                        <div className="bg-emerald-50 text-emerald-700 text-xs font-medium py-2 text-center border-t border-emerald-100">
+        💳 Eft ve Havalede  <span className="font-semibold">%5 e varan</span> indirim
+        fırsatları
+      </div>
 
                 {/* Additional Images */}
                 <div className="lg:col-span-2 rounded-2xl overflow-hidden border border-slate-100 shadow-soft bg-gradient-to-br from-white via-slate-50 to-white">

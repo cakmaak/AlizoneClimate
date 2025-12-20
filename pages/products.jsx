@@ -94,12 +94,12 @@ export default function ProductsPage({ products }) {
         const id = parseInt(p.id);
         return id >= 60 && id <= 66;
       });
-    } else if (type === 'ticari' || type === 'commercial') {
+    } else if (type === 'ticari' ||  type === 'commercial') {
       return preparedProducts.filter(p => {
         const id = parseInt(p.id);
         return !splitIds.includes(id) && 
                !p.type?.toLowerCase().includes('mobil') &&
-               (id < 60 || id > 66); // Exclude multi-split products
+               (id < 60 || id > 66 || id === 999); // Exclude multi-split products
       });
     }
     

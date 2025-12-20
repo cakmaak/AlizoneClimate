@@ -37,6 +37,49 @@ export default function Footer() {
     { text: "profesyonel klima", href: "/products" },
     { text: "klima uzmanı", href: "/contact" },
     { text: "klima teknik servis", href: "/contact" },
+    { text: "ankara klima", href: "/products" },
+  { text: "ankara klima satış", href: "/products" },
+  { text: "ankara klima fiyatları", href: "/products" },
+  { text: "ankara klima servisi", href: "/contact" },
+  { text: "ankara klima montaj", href: "/contact" },
+  { text: "ankara klima bakım", href: "/contact" },
+
+  { text: "sincan klima", href: "/products" },
+  { text: "sincan klima satış", href: "/products" },
+  { text: "sincan klima fiyatları", href: "/products" },
+  { text: "sincan klima servisi", href: "/contact" },
+  { text: "sincan klima montaj", href: "/contact" },
+  { text: "sincan klima bakım", href: "/contact" },
+  { text: "sincan klima keşif", href: "/contact" },
+
+  { text: "ankara sincan klima", href: "/products" },
+  { text: "ankara sincan klima servisi", href: "/contact" },
+  { text: "ankara sincan klima montaj", href: "/contact" },
+  { text: "ankara sincan klima satış", href: "/products" },
+
+  { text: "sincan split klima", href: "/products" },
+  { text: "sincan inverter klima", href: "/products" },
+  { text: "sincan salon tipi klima", href: "/products" },
+  { text: "sincan kaset tipi klima", href: "/products" },
+
+  { text: "ankara split klima", href: "/products" },
+  { text: "ankara inverter klima", href: "/products" },
+
+  { text: "sincan klima teknik servis", href: "/contact" },
+  { text: "sincan klima tamiri", href: "/contact" },
+  { text: "sincan klima onarım", href: "/contact" },
+  { text: "sincan klima gaz dolumu", href: "/contact" },
+
+  { text: "ankara klima teknik servis", href: "/contact" },
+  { text: "ankara klima tamiri", href: "/contact" },
+
+  { text: "yakınımdaki klima servisi sincan", href: "/contact" },
+  { text: "sincan klima ustası", href: "/contact" },
+  { text: "ankara sincan klima ustası", href: "/contact" },
+
+  { text: "alizone klima ankara", href: "/products" },
+  { text: "alizone klima sincan", href: "/products" },
+  { text: "multi split klima", href: "/products" }
   ];
 
   return (
@@ -52,8 +95,8 @@ export default function Footer() {
           <h4 className="font-semibold">İletişim</h4>
           <ul className="mt-3 space-y-2 text-sm text-slate-300">
             <li>Telefon: <a className="text-white font-semibold" href="tel:+903462111111">0 (554) 230 95 63</a></li>
-            <li>Email: <a className="text-white font-semibold" href="mailto:alizoneklima@gmail.com">info@alizone.com</a></li>
-            <li>Adres: Sincan/Ankara</li>
+            <li>Email: <a className="text-white font-semibold" href="mailto:alizoneteknoloji@hotmail.com">alizoneteknoloji@hotmail.com</a></li>
+            <li>Adres: Ahi evran mahallesi 225 cadde F blok no:61 Sincan/Ankara</li>
           </ul>
         </div>
         <div>
