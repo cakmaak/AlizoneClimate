@@ -15,9 +15,8 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* 🔝 HERO VIDEO */}
       <section className="relative h-[70vh] w-full overflow-hidden bg-black">
-        {/*<video
+        <video
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover"
           autoPlay
@@ -29,7 +28,6 @@ export default function AboutPage() {
           <source src="/Alizone_iklimlendirme.mp4" type="video/mp4" />
         </video>
 
-        {/* overlay */}
         <div className="absolute inset-0 bg-black/50" />
 
         <div className="relative z-10">
@@ -38,20 +36,13 @@ export default function AboutPage() {
 
         <div className="relative z-10 flex h-full items-center justify-center text-center px-6">
           <div className="text-white max-w-3xl space-y-4">
-            <p className="text-sm uppercase tracking-[0.25em] text-emerald-200">
-              
-            </p>
-            <h1 className="text-4xl md:text-5xl font-extrabold">
-             
-            </h1>
-            <p className="text-slate-200">
-              
-            </p>
+            <p className="text-sm uppercase tracking-[0.25em] text-emerald-200"></p>
+            <h1 className="text-4xl md:text-5xl font-extrabold"></h1>
+            <p className="text-slate-200"></p>
           </div>
         </div>
       </section>
 
-      {/* 📄 İÇERİK */}
       <main className="container py-16 space-y-16">
         <section className="grid gap-10 md:grid-cols-2 items-center">
           <div className="space-y-4">
@@ -76,10 +67,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* 📷 FOTOĞRAF (KALDIRMADIK) */}
-          <div className="rounded-3xl overflow-hidden shadow-soft">
-        
-          </div>
+          <div className="rounded-3xl overflow-hidden shadow-soft"></div>
         </section>
       </main>
 
