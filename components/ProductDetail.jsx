@@ -250,7 +250,7 @@ export default function ProductDetail({ product, onClose }) {
 
                   <div className="flex flex-col sm:flex-row gap-3">
                     <a
-                      href="mailto:info@alizone.com"
+                      href="mailto:alizoneteknoloji@hotmail.com"
                       className="flex-1 text-center rounded-lg bg-primary text-white font-semibold py-3 shadow-soft hover:brightness-105 transition"
                     >
                       Teklif Al
