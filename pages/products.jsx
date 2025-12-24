@@ -77,7 +77,7 @@ export default function ProductsPage({ products }) {
       });
   }, [products]);
 
-  const splitIds = [38, 39, 40, 41, 52, 53, 54, 55];
+  const splitIds = [38, 39, 40, 41, 52, 53, 54, 55,3000];
 
   const filteredProducts = useMemo(() => {
     if (!isClient) return [];

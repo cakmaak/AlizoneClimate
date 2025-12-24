@@ -2,48 +2,27 @@ import Link from "next/link";
 
 export default function Footer() {
   const keywords = [
-    { text: "bosch klima", href: "/products" },
-{ text: "bosch klima fiyatları", href: "/products" },
-{ text: "bosch inverter klima", href: "/products" },
-{ text: "bosch split klima", href: "/products" },
-{ text: "bosch klima servisi", href: "/contact" },
-{ text: "bosch klima montaj", href: "/contact" },
-{ text: "bosch klima tamiri", href: "/contact" },
-{ text: "bosch klima ankara", href: "/products" },
-{ text: "bosch klima sincan", href: "/products" },
-{ text: "sakura klima", href: "/products" },
-{ text: "sakura klima fiyatları", href: "/products" },
-{ text: "sakura inverter klima", href: "/products" },
-{ text: "sakura klima servisi", href: "/contact" },
-{ text: "sakura klima montaj", href: "/contact" },
-{ text: "sakura klima ankara", href: "/products" },
-{ text: "sakura klima sincan", href: "/products" },
-{ text: "klima satın al", href: "/products" },
-{ text: "klima fiyatları", href: "/products" },
-{ text: "klima modelleri", href: "/products" },
-{ text: "klima markaları", href: "/products" },
-{ text: "split klima", href: "/products" },
-{ text: "inverter klima", href: "/products" },
-{ text: "multi split klima", href: "/products" },
-{ text: "iklimlendirme sistemleri", href: "/products" },
-{ text: "klima servisi", href: "/contact" },
-{ text: "klima montajı", href: "/contact" },
-{ text: "klima bakımı", href: "/contact" },
-{ text: "klima tamiri", href: "/contact" },
-{ text: "klima gaz dolumu", href: "/contact" },
-{ text: "klima teknik servis", href: "/contact" },
-{ text: "ankara klima satış", href: "/products" },
-{ text: "ankara klima servisi", href: "/contact" },
-{ text: "ankara klima montaj", href: "/contact" },
-{ text: "ankara klima satın al", href: "/contact" },
-{ text: "sincan klima satış", href: "/products" },
-{ text: "sincan klima servisi", href: "/contact" },
-{ text: "sincan klima montaj", href: "/contact" },
-{ text: "sincan klima bakım", href: "/contact" },
-{ text: "sincan klima tamiri", href: "/contact" },
-{ text: "ankara sincan klima servisi", href: "/contact" },
-{ text: "yakınımdaki klima servisi sincan", href: "/contact" },
-{ text: "duvar tipi klima ", href: "/products" },
+    { text: "Klima Satın Al", href: "/products" },
+    { text: "Klima Fiyatları", href: "/products" },
+    { text: "Klima Modelleri", href: "/products" },
+    { text: "Split Klima", href: "/products" },
+    { text: "Inverter Klima", href: "/products" },
+    { text: "Multi Split Klima", href: "/products?type=multi-split" },
+    { text: "Ankara Klima Satışı", href: "/products" },
+    { text: "Ankara Klima Satın al", href: "/contact" },
+    { text: "Sincan Klima Satın al", href: "/contact" },
+    { text: "Sincan Klima Satışı", href: "/contact" },
+    { text: "Bosch Klima Modelleri", href: "/products" },
+    { text: "Bosch Klima Satın Al", href: "/products" },
+    { text: "Sakura Klima Modelleri", href: "/products" },
+    { text: "Klima Montajı", href: "/contact" },
+    { text: "Klima Bakımı", href: "/contact" },
+    { text: "Klima Tamiri", href: "/contact" },
+    { text: "Klima Gaz Dolumu", href: "/contact" },
+    { text: "Klima Montajı", href: "/contact" },
+    { text: "Klima Bakımı", href: "/contact" },
+    { text: "Klima Tamiri", href: "/contact" },
+    { text: "Ticari Klima", href: "/products?type=ticari" },
 
 
 
@@ -73,7 +52,7 @@ export default function Footer() {
             {["facebook", "instagram", "linkedin"].map((platform) => (
               <a
                 key={platform}
-                href="#"
+                href="https://www.instagram.com/alizoneklima"
                 aria-label={platform}
                 className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition"
               >
@@ -84,6 +63,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10 py-4">
+
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-4 gap-y-1 text-xs text-slate-500 mb-2 px-4">
             {keywords.map((keyword, index) => (
@@ -98,6 +78,21 @@ export default function Footer() {
           </div>
         </div>
         <div className="text-center text-xs text-slate-400">
+        <p className="mt-2">
+    <a
+      href="https://www.google.com/maps/place/Alizone+%C4%B0klimlendirme/@39.9666147,32.5596828,17z/data=!3m1!4b1!4m6!3m5!1s0x14d33b552a1e520b:0x4be019ec2776dacd!8m2!3d39.9666147!4d32.5622577!16s%2Fg%2F11mslqwtrp?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-emerald-600 hover:underline font-medium"
+    >
+      Ankara Klima Satış noktası | Google Maps
+
+    </a>
+  </p>
+  <p className="text-xs text-slate-500 mt-3">
+Ankara ve Sincan bölgesinde klima satışı, montajı ve teknik servis
+hizmetleri sunan Alizone İklimlendirme.
+</p>
           © {new Date().getFullYear()} Alizone İklimlendirme. Tüm hakları saklıdır.
         </div>
       </div>
